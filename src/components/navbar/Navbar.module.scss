@@ -1,0 +1,48 @@
+.navbar {
+  height: 70px;
+  background-color: #227093;
+  color: #fff;
+}
+
+.container {
+  height: 100%;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.brand {
+  font-size: 1.7rem;
+  font-weight: bold;
+}
+
+.list {
+  display: flex;
+  list-style: none;
+  height: 100%;
+  align-items: stretch;
+
+  li {
+    display: flex;
+    align-items: center;
+
+    a {
+      transition: all 0.5s ease-in-out;
+      border-radius: 5px;
+      padding: 5px 20px;
+    }
+
+    a:hover {
+      background-color: lighten($color: #227093, $amount: 10);
+    }
+
+    & + li {
+      margin-left: 20px;
+    }
+  }
+}
+
+.border {
+  border: 2px solid #fff;
+}
