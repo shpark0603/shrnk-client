@@ -9,7 +9,19 @@ module.exports = {
           loader: 'babel-loader',
           options: {
             presets: ['@babel/env', '@babel/react'],
-            plugins: ['babel-plugin-styled-components'],
+            plugins: [
+              'babel-plugin-styled-components',
+              [
+                '@babel/plugin-transform-runtime',
+                {
+                  absoluteRuntime: false,
+                  corejs: 3,
+                  helpers: true,
+                  regenerator: true,
+                  useESModules: false,
+                },
+              ],
+            ],
           },
         },
       },
