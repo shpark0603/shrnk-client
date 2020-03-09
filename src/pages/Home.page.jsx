@@ -1,10 +1,11 @@
 import React from 'react';
-import UrlForm from '../components/urlForm/UrlForm';
+import UrlForm from '../components/urlForm';
+import Hero from '../components/hero';
 
 function Home() {
   return (
     <div>
-      <h1>home page</h1>
+      <Hero />
       <UrlForm />
     </div>
   );

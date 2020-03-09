@@ -16,5 +16,10 @@
     "sourceType": "module"
   },
   "plugins": ["react", "prettier"],
-  "rules": {}
+  "rules": {
+    "no-use-before-define": "off",
+    "import/prefer-default-export": "warn",
+    "import/no-named-default": "warn",
+    "react/forbid-prop-types": "off"
+  }
 }

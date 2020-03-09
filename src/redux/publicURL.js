@@ -1,7 +1,8 @@
 const CREATE = 'publicURL/CREATE';
+const LOAD_LOCAL_STORAGE = 'publicURL/LOAD_LOCAL_STORAGE';
 
 const initialState = {
-  publicURLs: [],
+  shortenedURLs: [],
 };
 
 export const createPublicURL = publicURL => ({
@@ -9,14 +10,23 @@ export const createPublicURL = publicURL => ({
   payload: publicURL,
 });
 
+export const loadPublicURLFromLS = publicURLs => ({
+  type: LOAD_LOCAL_STORAGE,
+  payload: publicURLs,
+});
+
 const publicURLReducer = (state = initialState, action) => {
   switch (action.type) {
     case CREATE:
       return {
         ...state,
-        publicURLs: [action.payload, ...state.publicURLs],
+        shortenedURLs: [action.payload, ...state.shortenedURLs],
       };
-
+    case LOAD_LOCAL_STORAGE:
+      return {
+        ...state,
+        shortenedURLs: [...action.payload, ...state.shortenedURLs],
+      };
     default:
       return state;
   }

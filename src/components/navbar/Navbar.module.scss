@@ -28,9 +28,10 @@
     align-items: center;
 
     a {
+      font-size: 1.6rem;
       transition: all 0.2s ease-in-out;
-      border-radius: 5px;
-      padding: 5px 20px;
+      border-radius: 0.5rem;
+      padding: 0.5rem 2rem;
     }
 
     a:hover {
@@ -38,11 +39,11 @@
     }
 
     & + li {
-      margin-left: 20px;
+      margin-left: 2rem;
     }
   }
 }
 
 .border {
-  border: 2px solid #fff;
+  border: 0.2rem solid #fff;
 }

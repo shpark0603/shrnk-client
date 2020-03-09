@@ -1,0 +1,36 @@
+.hero {
+  max-width: 120rem;
+  display: flex;
+  align-items: center;
+}
+
+.left {
+  width: 50%;
+  padding: 5rem;
+}
+
+.right {
+  width: 50%;
+}
+
+.title {
+  font-size: 3rem;
+  font-weight: normal;
+  margin-bottom: 1rem;
+}
+
+.description {
+  font-size: 1.6rem;
+  a {
+    background-color: red;
+    transition: all 0.2s;
+
+    &:hover {
+      transform: translateY(-1rem);
+    }
+  }
+}
+
+.image {
+  width: 100%;
+}
