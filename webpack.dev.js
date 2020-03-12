@@ -15,29 +15,30 @@ module.exports = merge(common, {
           {
             loader: 'css-loader',
             options: {
-              modules: true,
-            },
+              modules: true
+            }
           },
-          'sass-loader',
-        ],
+          'sass-loader'
+        ]
       },
       {
         test: /\.s(a|c)ss$/,
         exclude: /\.module\.s(a|c)ss$/,
-        use: ['style-loader', 'css-loader', 'sass-loader'],
-      },
-    ],
+        use: ['style-loader', 'css-loader', 'sass-loader']
+      }
+    ]
   },
   devServer: {
     contentBase: path.join(__dirname, 'dist'),
     compress: true,
     port: 9000,
+    host: '0.0.0.0',
     open: true,
-    hot: true,
+    hot: true
   },
   plugins: [
     new HtmlWebpackPlugin({
-      template: './public/index.html',
-    }),
-  ],
+      template: './public/index.html'
+    })
+  ]
 });

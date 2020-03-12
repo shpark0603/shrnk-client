@@ -1,10 +1,23 @@
+@import '../../assets/variables';
+@import '../../assets/mixins';
+
 .navbar {
   height: 70px;
-  background-color: #227093;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  background-color: $color-primary;
   color: #fff;
+  box-shadow: 0 1rem 3rem rgba(#000, 0.2);
+}
+
+.space {
+  height: 70px;
 }
 
 .container {
+  @include contained;
   height: 100%;
   margin: 0 auto;
   display: flex;
@@ -13,8 +26,11 @@
 }
 
 .brand {
-  font-size: 1.7rem;
-  font-weight: bold;
+  height: 80%;
+
+  img {
+    height: 100%;
+  }
 }
 
 .list {
@@ -28,6 +44,7 @@
     align-items: center;
 
     a {
+      color: $color-grey-light-1;
       font-size: 1.6rem;
       transition: all 0.2s ease-in-out;
       border-radius: 0.5rem;
@@ -35,7 +52,7 @@
     }
 
     a:hover {
-      background-color: lighten($color: #227093, $amount: 10);
+      background-color: $color-primary-light;
     }
 
     & + li {
@@ -45,5 +62,5 @@
 }
 
 .border {
-  border: 0.2rem solid #fff;
+  border: 0.2rem solid $color-grey-light-1;
 }
