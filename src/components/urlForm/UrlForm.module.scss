@@ -1,0 +1,36 @@
+@import '../../assets/mixins';
+@import '../../assets/variables';
+
+.form {
+  background-color: $color-wet-asphalt;
+  width: 100%;
+  padding: 2rem;
+  display: flex;
+  justify-content: center;
+
+  &__input {
+    font-size: 2rem;
+    width: 50%;
+    height: 6rem;
+    padding: 1rem;
+    border-top-left-radius: 0.5rem;
+    border-bottom-left-radius: 0.5rem;
+    border: none;
+  }
+
+  &__btn {
+    border: none;
+    background-color: $color-primary;
+    color: white;
+    padding: 0 10rem;
+    font-size: 2rem;
+    border-top-right-radius: 0.5rem;
+    border-bottom-right-radius: 0.5rem;
+    transition: all 0.2s;
+
+    &:hover {
+      background-color: $color-primary-light;
+      cursor: pointer;
+    }
+  }
+}

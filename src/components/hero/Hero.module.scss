@@ -5,6 +5,8 @@
   @include contained;
   display: flex;
   align-items: center;
+  margin: 3rem auto;
+  font-size: 1.8rem;
 
   &__left {
     width: 60%;
@@ -20,22 +22,18 @@
     margin-bottom: 2rem;
   }
 
-  &__description {
-    font-size: 1.8rem;
+  &__btn {
+    margin-top: 2rem;
+    display: inline-block;
+    color: white;
+    background-color: $color-primary;
+    transition: all 0.2s;
+    padding: 0.5rem 1.5rem;
+    border-radius: 0.3rem;
 
-    a {
-      display: inline-block;
-      color: white;
-      background-color: $color-primary;
-      transition: all 0.2s;
-
-      &:hover {
-        transform: translateY(-0.3rem);
-      }
-    }
-
-    &:not(:last-child) {
-      margin-bottom: 0.5rem;
+    &:hover {
+      transform: translateY(-0.3rem);
+      box-shadow: 0 1rem 2rem rgba(black, 0.2);
     }
   }
 

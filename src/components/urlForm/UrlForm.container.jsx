@@ -1,17 +1,14 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import Axios from 'axios';
 
 import { createPublicURL } from '../../redux/publicURL';
 import UrlFormComponent from './UrlForm.component';
 
 function UrlFormContainer() {
   const [originalURL, setOriginalURL] = useState('');
-  const [error, setError] = useState(null);
-  const [isLoading, setIsLoading] = useState(false);
 
   const dispatch = useDispatch();
-  const shortenedURLs = useSelector(state => state.publicURL.shortenedURLs);
+  const { loading, error, hashes } = useSelector(state => state.publicURL);
 
   const handleChange = useCallback(e => {
     setOriginalURL(e.target.value);
@@ -25,31 +22,22 @@ function UrlFormContainer() {
         return;
       }
 
-      setIsLoading(true);
-
-      try {
-        const res = await Axios.post('http://localhost:5000/api/urls/public', {
-          originalURL
-        });
-        dispatch(createPublicURL(res.data));
-      } catch (err) {
-        setError(err.response.data);
-      } finally {
-        setIsLoading(false);
-        setOriginalURL('');
-      }
+      dispatch(createPublicURL(originalURL));
     },
     [originalURL]
   );
+
+  useEffect(() => {
+    localStorage.setItem('hashes', JSON.stringify(hashes));
+  }, [hashes]);
 
   return (
     <UrlFormComponent
       handleChange={handleChange}
       handleSubmit={handleSubmit}
       originalURL={originalURL}
-      shortenedURLs={shortenedURLs}
-      errror={error}
-      isLoading={isLoading}
+      error={error}
+      loading={loading}
     />
   );
 }

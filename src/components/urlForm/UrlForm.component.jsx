@@ -1,13 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import styles from './UrlForm.module.scss';
+
 UrlFormComponent.propTypes = {
   handleChange: PropTypes.func.isRequired,
   handleSubmit: PropTypes.func.isRequired,
-  shortenedURLs: PropTypes.arrayOf(PropTypes.object).isRequired,
   originalURL: PropTypes.string.isRequired,
   error: PropTypes.object,
-  isLoading: PropTypes.bool.isRequired
+  loading: PropTypes.bool.isRequired
 };
 
 UrlFormComponent.defaultProps = {
@@ -17,10 +18,9 @@ UrlFormComponent.defaultProps = {
 function UrlFormComponent({
   handleChange,
   handleSubmit,
-  shortenedURLs,
   originalURL,
   error,
-  isLoading
+  loading
 }) {
   if (error) {
     return (
@@ -31,7 +31,7 @@ function UrlFormComponent({
     );
   }
 
-  if (isLoading) {
+  if (loading) {
     return (
       <div>
         <h3>loading...</h3>
@@ -40,22 +40,18 @@ function UrlFormComponent({
   }
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={handleSubmit} className={styles.form}>
       <input
         type="text"
         name="OriginalURL"
         onChange={handleChange}
         value={originalURL}
+        className={styles.form__input}
+        placeholder="URL을 입력하세요"
       />
-      <button type="submit">shrink!</button>
-      {shortenedURLs.map(url => (
-        <div key={url.id}>
-          <p>{url.originalURL}</p>
-          <hr />
-          <p>{`http://localhost:5000/${url.hash}`}</p>
-          <hr />
-        </div>
-      ))}
+      <button type="submit" className={styles.form__btn}>
+        shrink!
+      </button>
     </form>
   );
 }

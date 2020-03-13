@@ -9,13 +9,11 @@ function HeroComponent() {
     <div className={styles.hero}>
       <div className={styles.hero__left}>
         <h1 className={styles.hero__title}>긴 url을 짧게 줄여보세요.</h1>
-        <p className={styles.hero__description}>
-          <Link to="/signup">무료로 회원가입</Link>
-          하여 여러 url들을 관리해보세요.
-        </p>
-        <p className={styles.hero__description}>
-          회원가입하지 않고 줄인 url은 7일동안만 접근가능합니다.
-        </p>
+        <p>무료로 회원가입하여 여러 url들을 관리해보세요.</p>
+        <p>회원가입하지 않고 줄인 url은 7일동안만 접근할 수 있습니다.</p>
+        <Link to="/signup" className={styles.hero__btn}>
+          무료로 회원가입
+        </Link>
       </div>
       <div className={styles.hero__right}>
         <img

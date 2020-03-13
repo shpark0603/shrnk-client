@@ -1,32 +1,53 @@
+import axios from 'axios';
+
 const CREATE = 'publicURL/CREATE';
-const LOAD_LOCAL_STORAGE = 'publicURL/LOAD_LOCAL_STORAGE';
+const TOGGLE_ERROR = 'publicURL/TOGGLE_ERROR';
+const TOGGLE_LOADING = 'publicURL/TOGGLE_LOADING';
 
 const initialState = {
-  shortenedURLs: [],
+  hashes: JSON.parse(localStorage.getItem('hashes')) || [],
+  error: null,
+  loading: false
 };
 
-export const createPublicURL = publicURL => ({
-  type: CREATE,
-  payload: publicURL,
-});
+export const createPublicURL = originalURL => async dispatch => {
+  dispatch({ type: TOGGLE_LOADING });
 
-export const loadPublicURLFromLS = publicURLs => ({
-  type: LOAD_LOCAL_STORAGE,
-  payload: publicURLs,
-});
+  try {
+    const res = await axios.post('http://localhost:5000/api/urls/public', {
+      originalURL
+    });
+
+    dispatch({ type: CREATE, payload: res.data });
+    console.log(res.data);
+  } catch (err) {
+    dispatch({ type: TOGGLE_ERROR, payload: err.response.data });
+  } finally {
+    dispatch({ type: TOGGLE_LOADING });
+  }
+};
 
 const publicURLReducer = (state = initialState, action) => {
   switch (action.type) {
     case CREATE:
       return {
         ...state,
-        shortenedURLs: [action.payload, ...state.shortenedURLs],
+        hashes: [action.payload, ...state.hashes]
       };
-    case LOAD_LOCAL_STORAGE:
+
+    case TOGGLE_LOADING:
       return {
         ...state,
-        shortenedURLs: [...action.payload, ...state.shortenedURLs],
+        loading: !state.loading
       };
+
+    case TOGGLE_ERROR:
+      if (action.payload) {
+        return { ...state, error: action.payload };
+      }
+
+      return { ...state, error: null };
+
     default:
       return state;
   }
