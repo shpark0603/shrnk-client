@@ -1,0 +1,26 @@
+@import '../../../assets/variables';
+
+.item {
+  list-style: none;
+  font-size: 1.8rem;
+  width: 95%;
+  margin: 0 auto;
+  padding: 2rem 0;
+  display: flex;
+  justify-content: space-between;
+
+  &__left {
+    width: 40%;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+  }
+
+  &__right {
+    width: 30%;
+  }
+
+  & + & {
+    border-top: 1px solid rgba($color-wet-asphalt, 0.5);
+  }
+}

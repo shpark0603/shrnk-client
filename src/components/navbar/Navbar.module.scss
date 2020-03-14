@@ -2,7 +2,7 @@
 @import '../../assets/mixins';
 
 .navbar {
-  height: 70px;
+  height: 7rem;
   position: fixed;
   top: 0;
   left: 0;
@@ -20,7 +20,13 @@
   }
 
   &__brand {
-    height: 80%;
+    display: flex;
+    align-items: center;
+    height: 100%;
+
+    a {
+      height: 70%;
+    }
 
     img {
       height: 100%;

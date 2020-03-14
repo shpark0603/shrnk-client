@@ -41,17 +41,19 @@ function UrlFormComponent({
 
   return (
     <form onSubmit={handleSubmit} className={styles.form}>
-      <input
-        type="text"
-        name="OriginalURL"
-        onChange={handleChange}
-        value={originalURL}
-        className={styles.form__input}
-        placeholder="URL을 입력하세요"
-      />
-      <button type="submit" className={styles.form__btn}>
-        shrink!
-      </button>
+      <div className={styles.form__container}>
+        <input
+          type="text"
+          name="OriginalURL"
+          onChange={handleChange}
+          value={originalURL}
+          className={styles.form__input}
+          placeholder="URL을 입력하세요"
+        />
+        <button type="submit" className={styles.form__btn}>
+          shrink!
+        </button>
+      </div>
     </form>
   );
 }

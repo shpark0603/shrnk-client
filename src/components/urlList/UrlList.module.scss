@@ -1,0 +1,8 @@
+@import '../../assets/mixins';
+
+.list {
+  @include contained;
+  margin: 2rem auto;
+  border-radius: 0.5rem;
+  background-color: #fff;
+}

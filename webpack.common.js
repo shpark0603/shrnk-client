@@ -18,12 +18,12 @@ module.exports = {
                   corejs: 3,
                   helpers: true,
                   regenerator: true,
-                  useESModules: false,
-                },
-              ],
-            ],
-          },
-        },
+                  useESModules: false
+                }
+              ]
+            ]
+          }
+        }
       },
       {
         test: /\.(svg|png|jpe?g|gif)$/i,
@@ -31,13 +31,16 @@ module.exports = {
           loader: 'file-loader',
           options: {
             name: '[name].[hash].[ext]',
-            outputPath: 'imgs',
-          },
-        },
-      },
-    ],
+            outputPath: 'imgs'
+          }
+        }
+      }
+    ]
   },
   resolve: {
-    extensions: ['.js', '.jsx'],
+    extensions: ['.js', '.jsx']
   },
+  node: {
+    fs: 'empty'
+  }
 };

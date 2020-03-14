@@ -3,12 +3,11 @@
 .footer {
   margin-top: auto;
   padding: 2rem;
-  height: 30rem;
+  height: 20rem;
   background-color: $color-grey-dark-3;
   display: flex;
-  flex-direction: column;
   color: $color-grey-light-1;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
   font-size: 1.6rem;
 
@@ -38,18 +37,19 @@
   }
 
   img {
-    height: 60%;
+    height: 80%;
+    margin-right: 5rem;
   }
 
   &__info {
     height: 30%;
     display: flex;
-    align-items: center;
     flex-direction: column;
-    justify-content: space-between;
+    align-items: center;
   }
 
   &__aboutMe {
+    margin-top: 2rem;
     display: flex;
     align-items: center;
 

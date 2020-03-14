@@ -1,6 +1,7 @@
 import React from 'react';
 import UrlForm from '../components/urlForm';
 import Hero from '../components/hero';
+import UrlList from '../components/urlList';
 import Footer from '../components/footer';
 
 function Home() {
@@ -8,6 +9,7 @@ function Home() {
     <>
       <Hero />
       <UrlForm />
+      <UrlList />
       <Footer />
     </>
   );
