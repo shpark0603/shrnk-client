@@ -1,15 +1,19 @@
 import React, { useCallback, useState, useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
 import Clipboard from 'clipboard';
-import { FaClipboard, FaClipboardCheck } from 'react-icons/fa';
 
 import styles from './UrlListItem.module.scss';
 
 UrlListItemComponent.propTypes = {
-  hash: PropTypes.object.isRequired
+  hash: PropTypes.object.isRequired,
+  sample: PropTypes.bool
 };
 
-function UrlListItemComponent({ hash }) {
+UrlListItemComponent.defaultProps = {
+  sample: false
+};
+
+function UrlListItemComponent({ hash, sample }) {
   const [clicked, setClicked] = useState(false);
   const copyBtnRef = useRef();
 
@@ -37,6 +41,11 @@ function UrlListItemComponent({ hash }) {
 
   return (
     <li className={styles.item}>
+      {sample ? (
+        <div className={styles.item__sample}>
+          <span>———— 예시입니다 ————</span>
+        </div>
+      ) : null}
       <div className={styles.item__left}>{hash.originalURL}</div>
       <div className={styles.item__right}>
         <a
@@ -51,10 +60,12 @@ function UrlListItemComponent({ hash }) {
           type="button"
           ref={copyBtnRef}
           data-clipboard-text={shortURL}
-          className={styles.item__btn}
+          className={`${styles.item__btn} ${
+            clicked ? styles['item__btn-clicked'] : ''
+          }`}
           onClick={handleCopy}
         >
-          {clicked ? <FaClipboard /> : <FaClipboardCheck />}
+          {clicked ? 'copied!' : 'copy'}
         </button>
       </div>
     </li>

@@ -23,6 +23,8 @@ function UrlFormContainer() {
       }
 
       dispatch(createPublicURL(originalURL));
+
+      setOriginalURL('');
     },
     [originalURL]
   );

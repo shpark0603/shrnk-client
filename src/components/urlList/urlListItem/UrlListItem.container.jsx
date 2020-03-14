@@ -3,12 +3,17 @@ import PropTypes from 'prop-types';
 
 import UrlListItemComponent from './UrlListItem.component';
 
-UrlListItemComponent.propTypes = {
-  hash: PropTypes.object.isRequired
+UrlListItemContainer.propTypes = {
+  hash: PropTypes.object.isRequired,
+  sample: PropTypes.bool
 };
 
-function UrlListItemContainer({ hash }) {
-  return <UrlListItemComponent hash={hash} />;
+UrlListItemContainer.defaultProps = {
+  sample: false
+};
+
+function UrlListItemContainer({ hash, sample }) {
+  return <UrlListItemComponent hash={hash} sample={sample} />;
 }
 
 export default UrlListItemContainer;

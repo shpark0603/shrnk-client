@@ -1,5 +1,11 @@
 @mixin contained {
   width: 90%;
-  max-width: 120rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+@mixin contained-small {
+  width: 70%;
+  max-width: 1000px;
   margin: 0 auto;
 }

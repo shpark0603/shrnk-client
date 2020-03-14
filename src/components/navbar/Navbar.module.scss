@@ -9,7 +9,7 @@
   right: 0;
   background-color: $color-primary;
   color: #fff;
-  box-shadow: 0 1rem 3rem rgba(#000, 0.2);
+  box-shadow: 0 0.5rem 1rem rgba(#000, 0.2);
 
   &__container {
     @include contained;
@@ -67,6 +67,6 @@
   }
 
   &__space {
-    height: 70px;
+    height: 7rem;
   }
 }

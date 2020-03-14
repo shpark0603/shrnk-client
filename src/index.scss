@@ -16,8 +16,8 @@ html {
     font-size: 50%;
   }
 
-  @media (min-width: 1800px) {
-    font-size: 75%;
+  @media (max-width: 600px) {
+    font-size: 45%;
   }
 }
 

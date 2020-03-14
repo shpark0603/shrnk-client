@@ -9,9 +9,18 @@ function UrlListContainer() {
 
   return (
     <UrlListComponent>
-      {hashes.map(hash => (
-        <UrlListItem key={hash.id} hash={hash} />
-      ))}
+      {hashes.length === 0 ? (
+        <UrlListItem
+          hash={{
+            originalURL:
+              'https://reactjs.org/blog/2019/11/06/building-great-user-experiences-with-concurrent-mode-and-suspense.html',
+            hash: 'e8OtuXdU'
+          }}
+          sample
+        />
+      ) : (
+        hashes.map(hash => <UrlListItem key={hash.id} hash={hash} />)
+      )}
     </UrlListComponent>
   );
 }
