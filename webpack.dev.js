@@ -18,13 +18,14 @@ module.exports = merge(common, {
               modules: true
             }
           },
+          'postcss-loader',
           'sass-loader'
         ]
       },
       {
         test: /\.s(a|c)ss$/,
         exclude: /\.module\.s(a|c)ss$/,
-        use: ['style-loader', 'css-loader', 'sass-loader']
+        use: ['style-loader', 'css-loader', 'postcss-loader', 'sass-loader']
       }
     ]
   },
@@ -33,8 +34,8 @@ module.exports = merge(common, {
     compress: true,
     port: 9000,
     host: '0.0.0.0',
-    open: true,
-    hot: true
+    hot: true,
+    historyApiFallback: true
   },
   plugins: [
     new HtmlWebpackPlugin({

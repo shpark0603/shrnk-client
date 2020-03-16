@@ -1,3 +1,6 @@
+const webpack = require('webpack');
+const autoprefixer = require('autoprefixer');
+
 module.exports = {
   entry: './src/index.jsx',
   module: {
@@ -31,7 +34,7 @@ module.exports = {
           loader: 'file-loader',
           options: {
             name: '[name].[hash].[ext]',
-            outputPath: 'imgs'
+            outputPath: './imgs'
           }
         }
       }
@@ -40,7 +43,11 @@ module.exports = {
   resolve: {
     extensions: ['.js', '.jsx']
   },
-  node: {
-    fs: 'empty'
-  }
+  plugins: [
+    new webpack.LoaderOptionsPlugin({
+      options: {
+        postcss: [autoprefixer()]
+      }
+    })
+  ]
 };

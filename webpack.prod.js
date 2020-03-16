@@ -9,8 +9,9 @@ const common = require('./webpack.common');
 module.exports = merge(common, {
   mode: 'production',
   output: {
-    filename: 'bundle.[hash].js',
+    filename: 'bundle.[contenthash].js',
     path: path.join(__dirname, 'dist'),
+    publicPath: './'
   },
   module: {
     rules: [
@@ -21,18 +22,24 @@ module.exports = merge(common, {
           {
             loader: 'css-loader',
             options: {
-              modules: true,
-            },
+              modules: true
+            }
           },
-          'sass-loader',
-        ],
+          'postcss-loader',
+          'sass-loader'
+        ]
       },
       {
         test: /\.s(a|c)ss$/,
         exclude: /\.module\.s(a|c)ss$/,
-        use: [MiniCssExtractPlugin.loader, 'css-loader', 'sass-loader'],
-      },
-    ],
+        use: [
+          MiniCssExtractPlugin.loader,
+          'css-loader',
+          'postcss-loader',
+          'sass-loader'
+        ]
+      }
+    ]
   },
   optimization: {
     minimizer: [
@@ -42,16 +49,17 @@ module.exports = merge(common, {
         minify: {
           removeAttributeQuotes: true,
           collapseWhitespace: true,
-          removeComments: true,
+          removeComments: true
         },
-      }),
-    ],
+        favicon: './public/favicon.ico'
+      })
+    ]
   },
   plugins: [
     new CleanWebpackPlugin(),
     new MiniCssExtractPlugin({
-      filename: '[name].[hash].css',
-      chunkFilename: '[id].[hash].css',
-    }),
-  ],
+      filename: '[name].[contenthash].css',
+      chunkFilename: '[id].[hash].css'
+    })
+  ]
 });

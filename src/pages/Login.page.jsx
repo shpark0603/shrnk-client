@@ -1,11 +1,8 @@
 import React from 'react';
+import AuthForm from '../components/authForm';
 
 function Login() {
-  return (
-    <div>
-      <h1>Login page</h1>
-    </div>
-  );
+  return <AuthForm />;
 }
 
 export default Login;
