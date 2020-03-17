@@ -12,14 +12,18 @@ const initialState = {
 
 export const createPublicURL = originalURL => async dispatch => {
   dispatch({ type: TOGGLE_LOADING });
+  dispatch({ type: TOGGLE_ERROR });
 
   try {
     const res = await axios.post('http://localhost:5000/api/urls/public', {
       originalURL
     });
 
+    if (res.status >= 400) {
+      throw new Error(res.data);
+    }
+
     dispatch({ type: CREATE, payload: res.data });
-    console.log(res.data);
   } catch (err) {
     dispatch({ type: TOGGLE_ERROR, payload: err.response.data });
   } finally {
@@ -30,6 +34,16 @@ export const createPublicURL = originalURL => async dispatch => {
 const publicURLReducer = (state = initialState, action) => {
   switch (action.type) {
     case CREATE:
+      if (state.hashes.find(hash => hash.id === action.payload.id)) {
+        return {
+          ...state,
+          hashes: [
+            action.payload,
+            ...state.hashes.filter(hash => hash.id !== action.payload.id)
+          ]
+        };
+      }
+
       return {
         ...state,
         hashes: [action.payload, ...state.hashes]

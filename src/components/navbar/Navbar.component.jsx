@@ -6,10 +6,11 @@ import logo from '../../assets/images/logo-main.svg';
 import styles from './Navbar.module.scss';
 
 NavbarComponent.propTypes = {
-  isLoggedIn: PropTypes.bool.isRequired
+  isLoggedIn: PropTypes.bool.isRequired,
+  logout: PropTypes.func.isRequired
 };
 
-function NavbarComponent({ isLoggedIn }) {
+function NavbarComponent({ isLoggedIn, logout }) {
   return (
     <>
       <nav className={styles.navbar}>
@@ -23,7 +24,9 @@ function NavbarComponent({ isLoggedIn }) {
             {isLoggedIn ? (
               <>
                 <li>
-                  <button type="button">log out</button>
+                  <button type="button" onClick={logout}>
+                    로그아웃
+                  </button>
                 </li>
                 {/* <li>
                 <Link to='/user-details'></Link>

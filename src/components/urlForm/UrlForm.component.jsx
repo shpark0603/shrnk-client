@@ -22,23 +22,6 @@ function UrlFormComponent({
   error,
   loading
 }) {
-  if (error) {
-    return (
-      <div>
-        <h2>Error</h2>
-        <p>{error}</p>
-      </div>
-    );
-  }
-
-  if (loading) {
-    return (
-      <div>
-        <h3>loading...</h3>
-      </div>
-    );
-  }
-
   return (
     <form onSubmit={handleSubmit} className={styles.form}>
       <div className={styles.form__container}>
@@ -47,13 +30,17 @@ function UrlFormComponent({
           name="OriginalURL"
           onChange={handleChange}
           value={originalURL}
-          className={styles.form__input}
+          className={`${styles.form__input} ${error &&
+            styles['form__input-error']} ${loading &&
+            styles['form__input-loading']}`}
           placeholder="URL을 입력하세요"
+          disabled={loading}
         />
-        <button type="submit" className={styles.form__btn}>
-          shrink!
+        <button type="submit" className={styles.form__btn} disabled={loading}>
+          {loading ? 'loading...' : 'shrink!'}
         </button>
       </div>
+      {error && <span className={styles.form__errorMsg}>{error.message}</span>}
     </form>
   );
 }

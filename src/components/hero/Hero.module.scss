@@ -5,7 +5,7 @@
   @include contained;
   display: flex;
   align-items: center;
-  margin: 2rem auto;
+  margin: 10rem auto;
   font-size: 1.8rem;
 
   &__left {
@@ -43,6 +43,7 @@
 
   @media (max-width: 900px) {
     flex-direction: column;
+    margin: 5rem auto;
 
     &__left {
       width: 100%;

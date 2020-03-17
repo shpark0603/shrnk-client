@@ -2,6 +2,7 @@
 @import '../../assets/mixins';
 
 .navbar {
+  z-index: 10;
   height: 7rem;
   position: fixed;
   top: 0;
@@ -48,15 +49,20 @@
       margin-left: 1rem;
     }
 
-    a {
+    a,
+    button {
       color: $color-grey-light-1;
       font-size: 1.6rem;
       transition: all 0.2s ease-in-out;
       border-radius: 0.5rem;
       padding: 0.5rem 2rem;
+      background-color: transparent;
+      border: none;
+      cursor: pointer;
     }
 
-    a:hover {
+    a:hover,
+    button:hover {
       transform: translateY(-0.3rem);
       box-shadow: 0 1rem 2rem rgba(black, 0.2);
     }

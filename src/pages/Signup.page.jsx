@@ -1,11 +1,8 @@
 import React from 'react';
+import AuthForm from '../components/authForm';
 
 function Signup() {
-  return (
-    <div>
-      <h1>Signup page</h1>
-    </div>
-  );
+  return <AuthForm isLogin={false} />;
 }
 
 export default Signup;

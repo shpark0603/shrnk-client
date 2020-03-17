@@ -1,23 +1,46 @@
-import React, { useState } from 'react';
+import React, { useState, useCallback, useContext } from 'react';
+import PropTypes from 'prop-types';
 
 import AuthFormComponent from './AuthForm.component';
 
-function AuthFormContainer() {
-  const [form, setForm] = useState({ email: '', password: '' });
+import AuthContext from '../../context/auth.context';
 
-  const handleChange = e => {
-    setForm(prevForm => ({ ...prevForm, [e.target.name]: e.target.value }));
-  };
-  const handleSubmit = e => {
+AuthFormContainer.propTypes = {
+  isLogin: PropTypes.bool
+};
+
+AuthFormContainer.defaultProps = {
+  isLogin: false
+};
+
+function AuthFormContainer({ isLogin }) {
+  const [form, setForm] = useState(() => {
+    const initialState = { email: '', password: '' };
+
+    return isLogin ? initialState : { ...initialState, confirmPassword: '' };
+  });
+
+  const { login } = useContext(AuthContext);
+
+  const handleChange = useCallback(e => {
+    const { name, value } = e.target;
+
+    setForm(prevForm => ({ ...prevForm, [name]: value }));
+  }, []);
+
+  const handleSubmit = useCallback(e => {
     e.preventDefault();
 
+    login();
     console.log(form);
-  };
+  }, []);
 
   return (
     <AuthFormComponent
       handleSubmit={handleSubmit}
       handleChange={handleChange}
+      form={form}
+      isLogin={isLogin}
     />
   );
 }

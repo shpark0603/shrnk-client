@@ -21,6 +21,14 @@
     border-bottom-left-radius: 0.5rem;
     border: none;
     outline: none;
+
+    &-loading {
+      background-color: $color-grey-dark-2;
+
+      &::placeholder {
+        opacity: 0;
+      }
+    }
   }
 
   &__btn {
@@ -38,6 +46,20 @@
       background-color: $color-primary-light;
       cursor: pointer;
     }
+
+    &:disabled {
+      background-color: $color-grey-dark;
+      cursor: default;
+    }
+  }
+
+  &__errorMsg {
+    margin-top: 2rem;
+    font-size: 1.8rem;
+    display: block;
+    color: $color-carmine-pink;
+    font-weight: 700;
+    text-align: center;
   }
 
   @media (max-width: 900px) {
