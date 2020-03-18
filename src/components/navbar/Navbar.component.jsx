@@ -7,24 +7,30 @@ import styles from './Navbar.module.scss';
 
 NavbarComponent.propTypes = {
   isLoggedIn: PropTypes.bool.isRequired,
-  logout: PropTypes.func.isRequired
+  handleLogout: PropTypes.func.isRequired
 };
 
-function NavbarComponent({ isLoggedIn, logout }) {
+function NavbarComponent({ isLoggedIn, handleLogout }) {
   return (
     <>
       <nav className={styles.navbar}>
         <div className={styles.navbar__container}>
           <div className={styles.navbar__brand}>
-            <Link to="/">
-              <img src={logo} alt="shrnk logo" />
-            </Link>
+            {isLoggedIn ? (
+              <Link to="/urls">
+                <img src={logo} alt="shrnk logo" />
+              </Link>
+            ) : (
+              <Link to="/">
+                <img src={logo} alt="shrnk logo" />
+              </Link>
+            )}
           </div>
           <ul className={styles.navbar__list}>
             {isLoggedIn ? (
               <>
                 <li>
-                  <button type="button" onClick={logout}>
+                  <button type="button" onClick={handleLogout}>
                     로그아웃
                   </button>
                 </li>

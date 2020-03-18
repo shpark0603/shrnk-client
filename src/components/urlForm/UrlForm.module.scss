@@ -20,7 +20,6 @@
     border-top-left-radius: 0.5rem;
     border-bottom-left-radius: 0.5rem;
     border: none;
-    outline: none;
 
     &-loading {
       background-color: $color-grey-dark-2;
@@ -40,7 +39,6 @@
     border-top-right-radius: 0.5rem;
     border-bottom-right-radius: 0.5rem;
     transition: background-color 0.2s;
-    outline: none;
 
     &:hover {
       background-color: $color-primary-light;
@@ -55,7 +53,7 @@
 
   &__errorMsg {
     margin-top: 2rem;
-    font-size: 1.8rem;
+    font-size: 2rem;
     display: block;
     color: $color-carmine-pink;
     font-weight: 700;

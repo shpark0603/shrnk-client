@@ -1,5 +1,6 @@
-import React, { useState, useCallback } from 'react';
+import React from 'react';
 import { Route, Redirect, Switch } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
 import Navbar from './components/navbar';
 import Home from './pages/Home.page';
@@ -8,22 +9,12 @@ import Signup from './pages/Signup.page';
 import Urls from './pages/Urls.page';
 import AccountDetails from './pages/AccountDetails.page';
 
-import AuthContext from './context/auth.context';
-
 function App() {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-
-  const login = useCallback(() => {
-    setIsLoggedIn(true);
-  }, []);
-
-  const logout = useCallback(() => {
-    setIsLoggedIn(false);
-  }, []);
+  const user = useSelector(state => state.auth.user);
 
   let routes;
 
-  if (isLoggedIn) {
+  if (user) {
     routes = (
       <Switch>
         <Route path="/urls" component={Urls} />
@@ -43,10 +34,10 @@ function App() {
   }
 
   return (
-    <AuthContext.Provider value={{ isLoggedIn, login, logout }}>
+    <>
       <Navbar />
       {routes}
-    </AuthContext.Provider>
+    </>
   );
 }
 

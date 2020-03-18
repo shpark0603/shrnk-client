@@ -8,20 +8,44 @@ AuthFormComponent.propTypes = {
   handleChange: PropTypes.func.isRequired,
   handleSubmit: PropTypes.func.isRequired,
   form: PropTypes.object.isRequired,
-  isLogin: PropTypes.bool
+  isLogin: PropTypes.bool,
+  error: PropTypes.objectOf(PropTypes.bool, PropTypes.object).isRequired,
+  loading: PropTypes.bool.isRequired
 };
 
 AuthFormComponent.defaultProps = {
   isLogin: false
 };
 
-function AuthFormComponent({ handleSubmit, handleChange, form, isLogin }) {
+function AuthFormComponent({
+  handleSubmit,
+  handleChange,
+  form,
+  isLogin,
+  error,
+  loading
+}) {
   return (
     <div className={styles.container}>
       <form onSubmit={handleSubmit} className={styles.form}>
         <h1 className={styles.form__title}>
           {isLogin ? '로그인' : '회원가입'}
         </h1>
+
+        {!isLogin && (
+          <div className={styles.form__group}>
+            <input
+              type="text"
+              id="name"
+              name="name"
+              onChange={handleChange}
+              placeholder="이름"
+              value={form.name}
+            />
+            <label htmlFor="name">이름</label>
+          </div>
+        )}
+
         <div className={styles.form__group}>
           <input
             type="text"
@@ -59,13 +83,16 @@ function AuthFormComponent({ handleSubmit, handleChange, form, isLogin }) {
             <label htmlFor="confirmPassword">비밀번호 확인</label>
           </div>
         )}
-
-        <button type="submit" className={styles.form__btn}>
+        <span className={styles.form__errorBox}>{error?.message}</span>
+        <button type="submit" className={styles.form__btn} disabled={loading}>
           {isLogin ? '로그인' : '회원가입'}
         </button>
         <span className={styles.form__link}>
           {isLogin ? '아직 회원이 아니신가요?' : '이미 회원이신가요?'}{' '}
-          <Link to={isLogin ? '/signup' : '/login'}>
+          <Link
+            to={isLogin ? '/signup' : '/login'}
+            className={loading ? styles.disabledAnchor : ''}
+          >
             {isLogin ? '회원가입' : '로그인'}
           </Link>
         </span>

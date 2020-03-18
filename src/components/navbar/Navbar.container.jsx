@@ -1,12 +1,21 @@
-import React, { useContext } from 'react';
+import React, { useCallback } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 
 import NavbarComponent from './Navbar.component';
-import AuthContext from '../../context/auth.context';
+
+import { logout } from '../../redux/auth';
 
 function NavbarContainer() {
-  const { isLoggedIn, logout } = useContext(AuthContext);
+  const isLoggedIn = !!useSelector(state => state.auth.user);
+  const dispatch = useDispatch();
 
-  return <NavbarComponent isLoggedIn={isLoggedIn} logout={logout} />;
+  const handleLogout = useCallback(() => {
+    dispatch(logout());
+  }, []);
+
+  return (
+    <NavbarComponent isLoggedIn={isLoggedIn} handleLogout={handleLogout} />
+  );
 }
 
 export default NavbarContainer;

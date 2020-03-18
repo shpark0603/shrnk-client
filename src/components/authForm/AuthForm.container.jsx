@@ -1,9 +1,9 @@
-import React, { useState, useCallback, useContext } from 'react';
+import React, { useState, useCallback } from 'react';
 import PropTypes from 'prop-types';
+import { useDispatch, useSelector } from 'react-redux';
 
 import AuthFormComponent from './AuthForm.component';
-
-import AuthContext from '../../context/auth.context';
+import { login, signup } from '../../redux/auth';
 
 AuthFormContainer.propTypes = {
   isLogin: PropTypes.bool
@@ -14,13 +14,16 @@ AuthFormContainer.defaultProps = {
 };
 
 function AuthFormContainer({ isLogin }) {
+  const dispatch = useDispatch();
+  const { error, loading } = useSelector(state => state.auth);
+
   const [form, setForm] = useState(() => {
     const initialState = { email: '', password: '' };
 
-    return isLogin ? initialState : { ...initialState, confirmPassword: '' };
+    return isLogin
+      ? initialState
+      : { ...initialState, confirmPassword: '', name: '' };
   });
-
-  const { login } = useContext(AuthContext);
 
   const handleChange = useCallback(e => {
     const { name, value } = e.target;
@@ -28,12 +31,26 @@ function AuthFormContainer({ isLogin }) {
     setForm(prevForm => ({ ...prevForm, [name]: value }));
   }, []);
 
-  const handleSubmit = useCallback(e => {
-    e.preventDefault();
+  let handleSubmit;
+  if (isLogin) {
+    handleSubmit = useCallback(
+      e => {
+        e.preventDefault();
 
-    login();
-    console.log(form);
-  }, []);
+        dispatch(login(form));
+      },
+      [form]
+    );
+  } else {
+    handleSubmit = useCallback(
+      e => {
+        e.preventDefault();
+
+        dispatch(signup(form));
+      },
+      [form]
+    );
+  }
 
   return (
     <AuthFormComponent
@@ -41,6 +58,8 @@ function AuthFormContainer({ isLogin }) {
       handleChange={handleChange}
       form={form}
       isLogin={isLogin}
+      error={error}
+      loading={loading}
     />
   );
 }
