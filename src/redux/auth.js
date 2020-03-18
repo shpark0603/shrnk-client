@@ -3,13 +3,17 @@ import axios from 'axios';
 const LOGIN = 'auth/LOGIN';
 const LOGOUT = 'auth/LOGOUT';
 const SIGNUP = 'auth/SIGNUP';
+// const CHECK_AUTH = 'auth/CHECK_AUTH';
+const SET_USER = 'auth/SET_USER';
+const TOGGLE_CHECK_ERROR = 'auth/TOGGLE_CHECK_ERROR';
 const TOGGLE_ERROR = 'auth/TOGGLE_ERROR';
 const TOGGLE_LOADING = 'auth/TOGGLE_LOADING';
 
 const initialState = {
   user: null,
   loading: false,
-  error: null
+  error: null,
+  checkError: null
 };
 
 export const login = ({ email, password }) => async dispatch => {
@@ -108,6 +112,20 @@ export const signup = ({
   }
 };
 
+export const setUser = user => async dispatch => {
+  try {
+    const res = await axios.get('/api/users/check-auth');
+
+    if (res.status >= 400) {
+      throw new Error(res.message);
+    }
+    dispatch({ type: SET_USER, payload: JSON.parse(user) });
+  } catch (error) {
+    localStorage.removeItem('user');
+    dispatch({ type: SET_USER, payload: null });
+  }
+};
+
 const authReducer = (state = initialState, action) => {
   switch (action.type) {
     case LOGIN:
@@ -117,6 +135,8 @@ const authReducer = (state = initialState, action) => {
       };
 
     case LOGOUT:
+      localStorage.removeItem('user');
+
       return {
         ...state,
         user: null
@@ -138,6 +158,25 @@ const authReducer = (state = initialState, action) => {
       return {
         ...state,
         loading: !state.loading
+      };
+
+    case TOGGLE_CHECK_ERROR:
+      if (action.payload) {
+        return {
+          ...state,
+          checkError: action.payload
+        };
+      }
+
+      return {
+        ...state,
+        checkError: null
+      };
+
+    case SET_USER:
+      return {
+        ...state,
+        user: action.payload
       };
 
     default:

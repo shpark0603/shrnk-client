@@ -7,10 +7,15 @@ import styles from './Navbar.module.scss';
 
 NavbarComponent.propTypes = {
   isLoggedIn: PropTypes.bool.isRequired,
-  handleLogout: PropTypes.func.isRequired
+  handleLogout: PropTypes.func.isRequired,
+  user: PropTypes.object
 };
 
-function NavbarComponent({ isLoggedIn, handleLogout }) {
+NavbarComponent.defaultProps = {
+  user: null
+};
+
+function NavbarComponent({ isLoggedIn, handleLogout, user }) {
   return (
     <>
       <nav className={styles.navbar}>
@@ -30,6 +35,9 @@ function NavbarComponent({ isLoggedIn, handleLogout }) {
             {isLoggedIn ? (
               <>
                 <li>
+                  <Link to="/user-details">{user.name}</Link>
+                </li>
+                <li>
                   <button
                     type="button"
                     onClick={handleLogout}
@@ -38,9 +46,6 @@ function NavbarComponent({ isLoggedIn, handleLogout }) {
                     로그아웃
                   </button>
                 </li>
-                {/* <li>
-                <Link to='/user-details'></Link>
-              </li> */}
               </>
             ) : (
               <>

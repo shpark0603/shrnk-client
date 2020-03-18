@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Route, Redirect, Switch } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
@@ -12,13 +12,19 @@ import AccountDetails from './pages/AccountDetails.page';
 function App() {
   const user = useSelector(state => state.auth.user);
 
+  useEffect(() => {
+    if (user && !localStorage.getItem('user')) {
+      localStorage.setItem('user', JSON.stringify(user));
+    }
+  }, [user]);
+
   let routes;
 
   if (user) {
     routes = (
       <Switch>
         <Route path="/urls" component={Urls} />
-        <Route path="/account-details" component={AccountDetails} />
+        <Route path="/user-details" component={AccountDetails} />
         <Redirect to="/urls" />
       </Switch>
     );

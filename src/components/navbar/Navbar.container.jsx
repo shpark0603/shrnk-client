@@ -6,7 +6,7 @@ import NavbarComponent from './Navbar.component';
 import { logout } from '../../redux/auth';
 
 function NavbarContainer() {
-  const isLoggedIn = !!useSelector(state => state.auth.user);
+  const user = useSelector(state => state.auth.user);
   const dispatch = useDispatch();
 
   const handleLogout = useCallback(() => {
@@ -14,7 +14,11 @@ function NavbarContainer() {
   }, []);
 
   return (
-    <NavbarComponent isLoggedIn={isLoggedIn} handleLogout={handleLogout} />
+    <NavbarComponent
+      isLoggedIn={!!user}
+      user={user}
+      handleLogout={handleLogout}
+    />
   );
 }
 

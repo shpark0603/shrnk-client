@@ -6,6 +6,16 @@ import { Provider } from 'react-redux';
 import store from './redux';
 import App from './App';
 import './index.scss';
+import { setUser } from './redux/auth';
+
+(() => {
+  const user = localStorage.getItem('user');
+  if (!user) {
+    return;
+  }
+
+  store.dispatch(setUser(user));
+})();
 
 ReactDOM.render(
   <Provider store={store}>

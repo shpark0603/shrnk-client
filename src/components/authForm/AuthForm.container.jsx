@@ -51,7 +51,6 @@ function AuthFormContainer({ isLogin }) {
       [form]
     );
   }
-
   return (
     <AuthFormComponent
       handleSubmit={handleSubmit}
