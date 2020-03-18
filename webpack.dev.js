@@ -35,7 +35,10 @@ module.exports = merge(common, {
     port: 9000,
     host: '0.0.0.0',
     hot: true,
-    historyApiFallback: true
+    historyApiFallback: true,
+    proxy: {
+      '/api': 'http://localhost:5000'
+    }
   },
   plugins: [
     new HtmlWebpackPlugin({

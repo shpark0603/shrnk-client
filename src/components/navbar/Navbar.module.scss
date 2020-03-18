@@ -54,10 +54,9 @@
       color: $color-grey-light-1;
       font-size: 1.8rem;
       transition: all 0.2s ease-in-out;
-      border-radius: 0.5rem;
+      border-radius: 5px;
       padding: 0.5rem 2rem;
       background-color: transparent;
-      border: none;
       cursor: pointer;
     }
 
@@ -68,11 +67,24 @@
     }
   }
 
-  &__border {
-    border: 0.2rem solid $color-grey-light-1;
-  }
-
   &__space {
     height: 7rem;
   }
+
+  &__logout {
+    border: none;
+  }
+
+  @media (max-width: 900px) {
+    &__list {
+      a,
+      button {
+        padding: 1rem 3rem;
+      }
+    }
+  }
+}
+
+.border {
+  border: 2px solid $color-grey-light-1;
 }

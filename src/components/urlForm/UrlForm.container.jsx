@@ -18,10 +18,6 @@ function UrlFormContainer() {
     async e => {
       e.preventDefault();
 
-      if (originalURL.trim() === '') {
-        return;
-      }
-
       dispatch(createPublicURL(originalURL));
 
       setOriginalURL('');

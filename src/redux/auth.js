@@ -13,12 +13,20 @@ const initialState = {
 };
 
 export const login = ({ email, password }) => async dispatch => {
+  if (email.trim() === '' || password.trim() === '') {
+    dispatch({
+      type: TOGGLE_ERROR,
+      payload: { message: '빈 칸 없이 모두 입력해주세요.' }
+    });
+    return;
+  }
+
   dispatch({ type: TOGGLE_LOADING });
   dispatch({ type: TOGGLE_ERROR });
 
   try {
     const res = await axios.post(
-      'http://localhost:5000/api/users/login',
+      '/api/users/login',
       {
         email,
         password
@@ -39,7 +47,7 @@ export const login = ({ email, password }) => async dispatch => {
 };
 
 export const logout = () => async dispatch => {
-  await axios.get('http://localhost:5000/api/users/logout', {
+  await axios.get('/api/users/logout', {
     withCredentials: true
   });
 
@@ -52,12 +60,33 @@ export const signup = ({
   password,
   confirmPassword
 }) => async dispatch => {
+  if (
+    email.trim() === '' ||
+    password.trim() === '' ||
+    name.trim() === '' ||
+    confirmPassword.trim() === ''
+  ) {
+    dispatch({
+      type: TOGGLE_ERROR,
+      payload: { message: '빈 칸 없이 모두 입력해주세요.' }
+    });
+    return;
+  }
+
+  if (password !== confirmPassword) {
+    dispatch({
+      type: TOGGLE_ERROR,
+      payload: { message: '비밀번호가 일치하지 않습니다.' }
+    });
+    return;
+  }
+
   dispatch({ type: TOGGLE_LOADING });
   dispatch({ type: TOGGLE_ERROR });
 
   try {
     const res = await axios.post(
-      'http://localhost:5000/api/users/signup',
+      '/api/users/signup',
       {
         name,
         email,

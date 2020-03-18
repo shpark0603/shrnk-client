@@ -67,7 +67,7 @@ function AuthFormComponent({
             id="password"
             name="password"
             onChange={handleChange}
-            placeholder="비밀번호"
+            placeholder="비밀번호 (6자 이상)"
             value={form.password}
             autoComplete={isLogin ? 'current-password' : 'new-password'}
           />

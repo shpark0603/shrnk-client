@@ -95,6 +95,28 @@
     color: $color-carmine-pink;
     text-align: center;
   }
+
+  @media (max-width: 1200px) {
+    &__group {
+      input {
+        height: 6rem;
+      }
+
+      label {
+        transform: translate(1rem, -4.2rem);
+      }
+
+      input:focus + label {
+        transform: translate(1rem, -8.7rem);
+        opacity: 1;
+      }
+    }
+
+    &__btn {
+      padding: 2rem;
+      font-size: 2rem;
+    }
+  }
 }
 
 .container {

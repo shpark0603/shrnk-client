@@ -11,11 +11,26 @@ const initialState = {
 };
 
 export const createPublicURL = originalURL => async dispatch => {
+  if (
+    originalURL.trim() === '' ||
+    !originalURL
+      .trim()
+      .match(
+        /https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|www\.[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9]+\.[^\s]{2,}|www\.[a-zA-Z0-9]+\.[^\s]{2,}/
+      )
+  ) {
+    dispatch({
+      type: TOGGLE_ERROR,
+      payload: { message: 'URL 형식이 아닙니다. 정확한 URL을 입력해주세요.' }
+    });
+    return;
+  }
+
   dispatch({ type: TOGGLE_LOADING });
   dispatch({ type: TOGGLE_ERROR });
 
   try {
-    const res = await axios.post('http://localhost:5000/api/urls/public', {
+    const res = await axios.post('/api/urls/public', {
       originalURL
     });
 

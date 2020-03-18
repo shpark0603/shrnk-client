@@ -30,7 +30,11 @@ function NavbarComponent({ isLoggedIn, handleLogout }) {
             {isLoggedIn ? (
               <>
                 <li>
-                  <button type="button" onClick={handleLogout}>
+                  <button
+                    type="button"
+                    onClick={handleLogout}
+                    className={styles.navbar__logout}
+                  >
                     로그아웃
                   </button>
                 </li>
@@ -44,7 +48,7 @@ function NavbarComponent({ isLoggedIn, handleLogout }) {
                   <Link to="/login">로그인</Link>
                 </li>
                 <li>
-                  <Link to="/signup" className={styles.navbar__border}>
+                  <Link to="/signup" className={styles.border}>
                     회원가입
                   </Link>
                 </li>
