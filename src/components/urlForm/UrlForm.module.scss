@@ -34,7 +34,7 @@
     border: none;
     background-color: $color-primary;
     color: white;
-    padding: 0 10rem;
+    width: 30rem;
     font-size: 2rem;
     border-top-right-radius: 0.5rem;
     border-bottom-right-radius: 0.5rem;
@@ -47,7 +47,7 @@
 
     &:disabled {
       background-color: $color-grey-dark;
-      cursor: default;
+      cursor: progress;
     }
   }
 

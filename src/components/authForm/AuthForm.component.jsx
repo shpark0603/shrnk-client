@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
+import SyncLoader from 'react-spinners/SyncLoader';
 
 import styles from './AuthForm.module.scss';
 
@@ -9,7 +10,7 @@ AuthFormComponent.propTypes = {
   handleSubmit: PropTypes.func.isRequired,
   form: PropTypes.object.isRequired,
   isLogin: PropTypes.bool,
-  error: PropTypes.objectOf(PropTypes.bool, PropTypes.object).isRequired,
+  error: PropTypes.object,
   loading: PropTypes.bool.isRequired
 };
 
@@ -41,6 +42,7 @@ function AuthFormComponent({
               onChange={handleChange}
               placeholder="이름"
               value={form.name}
+              autoComplete="name"
             />
             <label htmlFor="name">이름</label>
           </div>
@@ -54,6 +56,7 @@ function AuthFormComponent({
             onChange={handleChange}
             placeholder="이메일"
             value={form.email}
+            autoComplete="email"
           />
           <label htmlFor="email">이메일</label>
         </div>
@@ -66,6 +69,7 @@ function AuthFormComponent({
             onChange={handleChange}
             placeholder="비밀번호"
             value={form.password}
+            autoComplete={isLogin ? 'current-password' : 'new-password'}
           />
           <label htmlFor="password">비밀번호</label>
         </div>
@@ -79,13 +83,20 @@ function AuthFormComponent({
               onChange={handleChange}
               placeholder="비밀번호 확인"
               value={form.confirmPassword}
+              autoComplete="new-password"
             />
             <label htmlFor="confirmPassword">비밀번호 확인</label>
           </div>
         )}
         <span className={styles.form__errorBox}>{error?.message}</span>
         <button type="submit" className={styles.form__btn} disabled={loading}>
-          {isLogin ? '로그인' : '회원가입'}
+          {loading ? (
+            <SyncLoader color="white" size="10px" />
+          ) : isLogin ? (
+            '로그인'
+          ) : (
+            '회원가입'
+          )}
         </button>
         <span className={styles.form__link}>
           {isLogin ? '아직 회원이 아니신가요?' : '이미 회원이신가요?'}{' '}

@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import SyncLoader from 'react-spinners/SyncLoader';
 
 import styles from './UrlForm.module.scss';
 
@@ -37,7 +38,7 @@ function UrlFormComponent({
           disabled={loading}
         />
         <button type="submit" className={styles.form__btn} disabled={loading}>
-          {loading ? 'loading...' : 'shrink!'}
+          {loading ? <SyncLoader color="white" size="10px" /> : 'shrink!'}
         </button>
       </div>
       {error && <span className={styles.form__errorMsg}>{error.message}</span>}

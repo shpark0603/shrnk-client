@@ -73,6 +73,11 @@
     background-color: $color-primary-light;
   }
 
+  &__btn:disabled {
+    background-color: $color-grey-dark;
+    cursor: progress;
+  }
+
   &__link {
     margin-top: 2rem;
     text-align: center;
