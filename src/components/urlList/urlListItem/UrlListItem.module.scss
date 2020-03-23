@@ -35,8 +35,9 @@
     border: none;
     font-size: 1.8rem;
     cursor: pointer;
+    transition: all 0.5s;
 
-    &-clicked {
+    &-copied {
       background-color: $color-primary;
       color: white;
     }

@@ -35,9 +35,6 @@ function NavbarComponent({ isLoggedIn, handleLogout, user }) {
             {isLoggedIn ? (
               <>
                 <li>
-                  <Link to="/user-details">{user.name}</Link>
-                </li>
-                <li>
                   <button
                     type="button"
                     onClick={handleLogout}
@@ -45,6 +42,14 @@ function NavbarComponent({ isLoggedIn, handleLogout, user }) {
                   >
                     로그아웃
                   </button>
+                </li>
+                <li>
+                  <Link
+                    className={`${styles.navbar__username} ${styles.border}`}
+                    to="/user-details"
+                  >
+                    {user.name}
+                  </Link>
                 </li>
               </>
             ) : (

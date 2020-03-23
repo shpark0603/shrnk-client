@@ -14,7 +14,7 @@ UrlListItemComponent.defaultProps = {
 };
 
 function UrlListItemComponent({ hash, sample }) {
-  const [clicked, setClicked] = useState(false);
+  const [copied, setCopied] = useState(false);
   const copyBtnRef = useRef();
 
   const shortURL = `http://localhost:5000/${hash.hash}`;
@@ -22,22 +22,24 @@ function UrlListItemComponent({ hash, sample }) {
   useEffect(() => {
     const clipboard = new Clipboard(copyBtnRef.current);
 
+    let timeoutId;
     clipboard.on('success', () => {
-      setClicked(true);
+      setCopied(true);
+
+      timeoutId = setTimeout(() => {
+        setCopied(false);
+      }, 1000);
     });
 
-    clipboard.on('error', e => {
-      console.log(e);
+    clipboard.on('error', () => {
+      alert('이 기능을 사용할 수 없습니다. 직접 복사해주세요.');
     });
 
     return () => {
+      clearTimeout(timeoutId);
       clipboard.destroy();
     };
   }, [copyBtnRef]);
-
-  const handleCopy = useCallback(() => {
-    setClicked(true);
-  });
 
   return (
     <li className={styles.item}>
@@ -61,11 +63,10 @@ function UrlListItemComponent({ hash, sample }) {
           ref={copyBtnRef}
           data-clipboard-text={shortURL}
           className={`${styles.item__btn} ${
-            clicked ? styles['item__btn-clicked'] : ''
+            copied ? styles['item__btn-copied'] : ''
           }`}
-          onClick={handleCopy}
         >
-          {clicked ? 'copied!' : 'copy'}
+          {copied ? 'copied!' : 'copy'}
         </button>
       </div>
     </li>

@@ -1,9 +1,11 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
 
 import AuthFormComponent from './AuthForm.component';
 import { login, signup } from '../../redux/auth';
+import { persistLocalStorage } from '../../redux/userURL';
+import { clearPublicURL } from '../../redux/publicURL';
 
 AuthFormContainer.propTypes = {
   isLogin: PropTypes.bool
@@ -51,6 +53,17 @@ function AuthFormContainer({ isLogin }) {
       [form]
     );
   }
+
+  useEffect(() => {
+    return () => {
+      const hashes = JSON.parse(localStorage.getItem('hashes'));
+
+      if (hashes.length) {
+        dispatch(persistLocalStorage(hashes));
+        dispatch(clearPublicURL());
+      }
+    };
+  }, []);
   return (
     <AuthFormComponent
       handleSubmit={handleSubmit}

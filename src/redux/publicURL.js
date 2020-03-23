@@ -1,6 +1,7 @@
 import axios from 'axios';
 
 const CREATE = 'publicURL/CREATE';
+const CLEAR = 'publicURL/CLEAR';
 const TOGGLE_ERROR = 'publicURL/TOGGLE_ERROR';
 const TOGGLE_LOADING = 'publicURL/TOGGLE_LOADING';
 
@@ -46,6 +47,10 @@ export const createPublicURL = originalURL => async dispatch => {
   }
 };
 
+export const clearPublicURL = () => dispatch => {
+  dispatch({ type: CLEAR });
+};
+
 const publicURLReducer = (state = initialState, action) => {
   switch (action.type) {
     case CREATE:
@@ -76,6 +81,11 @@ const publicURLReducer = (state = initialState, action) => {
       }
 
       return { ...state, error: null };
+    case CLEAR:
+      return {
+        ...state,
+        hashes: []
+      };
 
     default:
       return state;
