@@ -1,4 +1,5 @@
-import React, { useCallback, useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
+import { FaRegTrashAlt } from 'react-icons/fa';
 import PropTypes from 'prop-types';
 import Clipboard from 'clipboard';
 
@@ -7,18 +8,21 @@ import styles from './UrlListItem.module.scss';
 UrlListItemComponent.propTypes = {
   hash: PropTypes.object.isRequired,
   sample: PropTypes.bool,
-  isPrivate: PropTypes.bool.isRequired
+  isPrivate: PropTypes.bool,
+  handleDelete: PropTypes.func
 };
 
 UrlListItemComponent.defaultProps = {
-  sample: false
+  sample: false,
+  handleDelete: null,
+  isPrivate: false
 };
 
-function UrlListItemComponent({ hash, sample, isPrivate }) {
+function UrlListItemComponent({ hash, sample, isPrivate, handleDelete }) {
   const [copied, setCopied] = useState(false);
   const copyBtnRef = useRef();
 
-  const shortURL = `http://localhost:5000/${hash.hash}`;
+  const shortURL = `ilili.me/${hash.hash}`;
 
   useEffect(() => {
     const clipboard = new Clipboard(copyBtnRef.current);
@@ -52,7 +56,7 @@ function UrlListItemComponent({ hash, sample, isPrivate }) {
       <div className={styles.item__left}>{hash.originalURL}</div>
       <div className={styles.item__right}>
         <a
-          href={shortURL}
+          href={`/${hash.hash}`}
           className={styles.item__shortenedURL}
           target="_blank"
           rel="noopener noreferrer"
@@ -69,6 +73,15 @@ function UrlListItemComponent({ hash, sample, isPrivate }) {
         >
           {copied ? 'copied!' : 'copy'}
         </button>
+        {isPrivate && (
+          <button
+            className={`${styles.item__btn} ${styles['item__btn-delete']}`}
+            type="button"
+            onClick={() => handleDelete(hash.id)}
+          >
+            <FaRegTrashAlt />
+          </button>
+        )}
       </div>
     </li>
   );

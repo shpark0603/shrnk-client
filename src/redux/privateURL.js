@@ -2,6 +2,7 @@ import axios from 'axios';
 
 const CREATE = 'privateURL/CREATE';
 const LOAD = 'privateURL/LOAD';
+const DELETE = 'privateURL/DELETE';
 const CLEAR = 'privateURL/CLEAR';
 const PERSIST_LOCALSTORAGE = 'privateURL/PERSIST_LOCALSTORAGE';
 const TOGGLE_ERROR = 'privateURL/TOGGLE_ERROR';
@@ -76,6 +77,25 @@ export const clearPrivateURL = () => dispatch => {
   dispatch({ type: CLEAR });
 };
 
+export const deletePrivateURL = urlId => async dispatch => {
+  dispatch({ type: TOGGLE_ERROR });
+  dispatch({ type: TOGGLE_LOADING });
+
+  try {
+    const res = await axios.delete(`/api/urls/${urlId}`);
+
+    if (res.status >= 400) {
+      throw new Error(res.message);
+    }
+
+    dispatch({ type: DELETE, payload: urlId });
+  } catch (error) {
+    dispatch({ type: TOGGLE_ERROR, payload: error.response.data });
+  } finally {
+    dispatch({ type: TOGGLE_LOADING });
+  }
+};
+
 const userURLReducer = (state = initialState, action) => {
   switch (action.type) {
     case LOAD:
@@ -94,6 +114,12 @@ const userURLReducer = (state = initialState, action) => {
       return {
         ...state,
         hashes: [...action.payload, ...state.hashes]
+      };
+
+    case DELETE:
+      return {
+        ...state,
+        hashes: [...state.hashes.filter(hash => hash.id !== action.payload)]
       };
 
     case TOGGLE_ERROR:

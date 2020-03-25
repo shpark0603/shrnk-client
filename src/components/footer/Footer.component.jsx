@@ -1,6 +1,5 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { FaGithub } from 'react-icons/fa';
 
 import styles from './footer.module.scss';
 import logo from '../../assets/images/logo-footer.svg';
@@ -17,25 +16,9 @@ function FooterComponent() {
           <li>
             <Link to="/signup">회원가입</Link>
           </li>
-          <li>
-            <a
-              href="https://github.com/shpReacts/shrnk"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              코드보기
-            </a>
-          </li>
         </ul>
         <div className={styles.footer__aboutMe}>
           <p>&copy; Sanghyun Park 2020.</p>
-          <a
-            href="https://github.com/shpReacts"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <FaGithub />
-          </a>
         </div>
       </div>
     </footer>
