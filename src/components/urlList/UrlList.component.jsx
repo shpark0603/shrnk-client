@@ -4,13 +4,16 @@ import PropTypes from 'prop-types';
 import styles from './UrlList.module.scss';
 
 UrlListComponent.propTypes = {
-  children: PropTypes.node.isRequired
+  children: PropTypes.node.isRequired,
+  isPrivate: PropTypes.bool.isRequired
 };
 
-function UrlListComponent({ children }) {
+function UrlListComponent({ children, isPrivate }) {
   return (
     <section>
-      <ul className={styles.list}>{children}</ul>
+      <ul className={` ${isPrivate ? styles['list-private'] : styles.list}`}>
+        {children}
+      </ul>
     </section>
   );
 }

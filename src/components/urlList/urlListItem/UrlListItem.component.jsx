@@ -6,14 +6,15 @@ import styles from './UrlListItem.module.scss';
 
 UrlListItemComponent.propTypes = {
   hash: PropTypes.object.isRequired,
-  sample: PropTypes.bool
+  sample: PropTypes.bool,
+  isPrivate: PropTypes.bool.isRequired
 };
 
 UrlListItemComponent.defaultProps = {
   sample: false
 };
 
-function UrlListItemComponent({ hash, sample }) {
+function UrlListItemComponent({ hash, sample, isPrivate }) {
   const [copied, setCopied] = useState(false);
   const copyBtnRef = useRef();
 
@@ -42,7 +43,7 @@ function UrlListItemComponent({ hash, sample }) {
   }, [copyBtnRef]);
 
   return (
-    <li className={styles.item}>
+    <li className={`${isPrivate ? styles['item-private'] : styles.item}`}>
       {sample ? (
         <div className={styles.item__sample}>
           <span>———— 예시입니다 ————</span>

@@ -39,9 +39,16 @@ export const createPublicURL = originalURL => async dispatch => {
       throw new Error(res.data);
     }
 
+    const existingHashes = JSON.parse(localStorage.getItem('hashes'));
+
+    localStorage.setItem(
+      'hashes',
+      JSON.stringify([res.data, ...(existingHashes || [])])
+    );
+
     dispatch({ type: CREATE, payload: res.data });
-  } catch (err) {
-    dispatch({ type: TOGGLE_ERROR, payload: err.response.data });
+  } catch (error) {
+    dispatch({ type: TOGGLE_ERROR, payload: error.response.data });
   } finally {
     dispatch({ type: TOGGLE_LOADING });
   }
@@ -81,6 +88,7 @@ const publicURLReducer = (state = initialState, action) => {
       }
 
       return { ...state, error: null };
+
     case CLEAR:
       return {
         ...state,

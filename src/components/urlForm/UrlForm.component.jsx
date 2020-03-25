@@ -9,7 +9,8 @@ UrlFormComponent.propTypes = {
   handleSubmit: PropTypes.func.isRequired,
   originalURL: PropTypes.string.isRequired,
   error: PropTypes.object,
-  loading: PropTypes.bool.isRequired
+  loading: PropTypes.bool.isRequired,
+  isPrivate: PropTypes.bool.isRequired
 };
 
 UrlFormComponent.defaultProps = {
@@ -21,10 +22,14 @@ function UrlFormComponent({
   handleSubmit,
   originalURL,
   error,
-  loading
+  loading,
+  isPrivate
 }) {
   return (
-    <form onSubmit={handleSubmit} className={styles.form}>
+    <form
+      onSubmit={handleSubmit}
+      className={`${styles.form} ${isPrivate ? styles['form-private'] : ''}`}
+    >
       <div className={styles.form__container}>
         <input
           type="text"

@@ -1,9 +1,9 @@
 import axios from 'axios';
+import { clearPrivateURL } from './privateURL';
 
 const LOGIN = 'auth/LOGIN';
 const LOGOUT = 'auth/LOGOUT';
 const SIGNUP = 'auth/SIGNUP';
-// const CHECK_AUTH = 'auth/CHECK_AUTH';
 const SET_USER = 'auth/SET_USER';
 const TOGGLE_CHECK_ERROR = 'auth/TOGGLE_CHECK_ERROR';
 const TOGGLE_ERROR = 'auth/TOGGLE_ERROR';
@@ -54,6 +54,8 @@ export const logout = () => async dispatch => {
   await axios.get('/api/users/logout', {
     withCredentials: true
   });
+
+  dispatch(clearPrivateURL());
 
   dispatch({ type: LOGOUT });
 };

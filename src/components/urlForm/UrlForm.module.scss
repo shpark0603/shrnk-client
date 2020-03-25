@@ -60,6 +60,21 @@
     text-align: center;
   }
 
+  &-private {
+    background-color: transparent;
+
+    .form__container {
+      @include contained;
+      box-shadow: 0 1rem 4rem rgba(black, 0.2);
+    }
+
+    @media (max-width: 900px) {
+      .form__btn {
+        margin-top: 0;
+      }
+    }
+  }
+
   @media (max-width: 900px) {
     &__container {
       width: 90%;

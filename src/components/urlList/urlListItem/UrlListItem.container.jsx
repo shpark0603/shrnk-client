@@ -5,15 +5,18 @@ import UrlListItemComponent from './UrlListItem.component';
 
 UrlListItemContainer.propTypes = {
   hash: PropTypes.object.isRequired,
-  sample: PropTypes.bool
+  sample: PropTypes.bool,
+  isPrivate: PropTypes.bool.isRequired
 };
 
 UrlListItemContainer.defaultProps = {
   sample: false
 };
 
-function UrlListItemContainer({ hash, sample }) {
-  return <UrlListItemComponent hash={hash} sample={sample} />;
+function UrlListItemContainer({ hash, sample, isPrivate }) {
+  return (
+    <UrlListItemComponent isPrivate={isPrivate} hash={hash} sample={sample} />
+  );
 }
 
 export default UrlListItemContainer;

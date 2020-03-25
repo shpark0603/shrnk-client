@@ -1,14 +1,31 @@
-import React, { useState, useCallback, useEffect } from 'react';
+import React, { useState, useCallback } from 'react';
+import PropTypes from 'prop-types';
+
 import { useSelector, useDispatch } from 'react-redux';
 
 import { createPublicURL } from '../../redux/publicURL';
+import { createPrivateURL } from '../../redux/privateURL';
 import UrlFormComponent from './UrlForm.component';
 
-function UrlFormContainer() {
+UrlFormContainer.propTypes = {
+  isPrivate: PropTypes.bool
+};
+
+UrlFormContainer.defaultProps = {
+  isPrivate: false
+};
+
+function UrlFormContainer({ isPrivate }) {
   const [originalURL, setOriginalURL] = useState('');
 
   const dispatch = useDispatch();
-  const { loading, error, hashes } = useSelector(state => state.publicURL);
+  const { loading, error } = useSelector(state => {
+    if (isPrivate) {
+      return state.privateURL;
+    }
+
+    return state.publicURL;
+  });
 
   const handleChange = useCallback(e => {
     setOriginalURL(e.target.value);
@@ -18,16 +35,16 @@ function UrlFormContainer() {
     async e => {
       e.preventDefault();
 
-      dispatch(createPublicURL(originalURL));
+      if (isPrivate) {
+        dispatch(createPrivateURL(originalURL));
+      } else {
+        dispatch(createPublicURL(originalURL));
+      }
 
       setOriginalURL('');
     },
     [originalURL]
   );
-
-  useEffect(() => {
-    localStorage.setItem('hashes', JSON.stringify(hashes));
-  }, [hashes]);
 
   return (
     <UrlFormComponent
@@ -36,6 +53,7 @@ function UrlFormContainer() {
       originalURL={originalURL}
       error={error}
       loading={loading}
+      isPrivate={isPrivate}
     />
   );
 }

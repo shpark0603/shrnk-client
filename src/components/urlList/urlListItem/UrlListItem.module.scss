@@ -10,6 +10,14 @@
   justify-content: space-between;
   align-items: center;
 
+  &-private {
+    list-style: none;
+    padding: 2rem;
+    font-size: 1.8rem;
+    background-color: white;
+    box-shadow: 0 1rem 4rem rgba(black, 0.3);
+  }
+
   &__left {
     width: 40%;
     text-overflow: ellipsis;

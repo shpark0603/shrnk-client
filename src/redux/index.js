@@ -3,12 +3,12 @@ import thunk from 'redux-thunk';
 
 import auth from './auth';
 import publicURL from './publicURL';
-import userURL from './userURL';
+import privateURL from './privateURL';
 
 const rootReducer = combineReducers({
   auth,
   publicURL,
-  userURL
+  privateURL
 });
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;

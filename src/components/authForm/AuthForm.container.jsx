@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import AuthFormComponent from './AuthForm.component';
 import { login, signup } from '../../redux/auth';
-import { persistLocalStorage } from '../../redux/userURL';
+import { persistLocalStorage } from '../../redux/privateURL';
 import { clearPublicURL } from '../../redux/publicURL';
 
 AuthFormContainer.propTypes = {
@@ -17,7 +17,7 @@ AuthFormContainer.defaultProps = {
 
 function AuthFormContainer({ isLogin }) {
   const dispatch = useDispatch();
-  const { error, loading } = useSelector(state => state.auth);
+  const { error, loading, user } = useSelector(state => state.auth);
 
   const [form, setForm] = useState(() => {
     const initialState = { email: '', password: '' };
@@ -58,7 +58,7 @@ function AuthFormContainer({ isLogin }) {
     return () => {
       const hashes = JSON.parse(localStorage.getItem('hashes'));
 
-      if (hashes.length) {
+      if (hashes?.length) {
         dispatch(persistLocalStorage(hashes));
         dispatch(clearPublicURL());
       }
