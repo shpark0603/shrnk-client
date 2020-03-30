@@ -46,7 +46,7 @@ export const createPrivateURL = originalURL => async dispatch => {
       throw new Error(res.message);
     }
 
-    dispatch({ type: CREATE, payload: res.data });
+    dispatch({ type: CREATE, payload: res.data.newURL });
   } catch (error) {
     dispatch({ type: TOGGLE_ERROR, payload: error.response.data });
   } finally {
@@ -56,6 +56,7 @@ export const createPrivateURL = originalURL => async dispatch => {
 
 export const loadPrivateURL = userId => async dispatch => {
   dispatch({ type: TOGGLE_ERROR });
+
   dispatch({ type: TOGGLE_LOADING });
 
   try {
